@@ -1,10 +1,10 @@
 package com.entrenamientoJava.app;
 
-public class Galleta {
+public class Pais {
 
 	private String nombre;
 
-	public Galleta(String nombre) {
+	public Pais(String nombre) {
 		this.nombre = nombre;
 	}
 

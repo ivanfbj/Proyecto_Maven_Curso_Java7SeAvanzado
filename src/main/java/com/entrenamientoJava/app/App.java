@@ -6,26 +6,23 @@ import java.util.ArrayList;
 public class App {
 
 	public static void main(String[] args) {
-//		PaisDAOImpl dao = new PaisDAOImpl();
 
-		// Con sigleton correcto
+		Clase c = new Clase("MitoCode");
+		Clase d = new Clase(25);
 
-		PaisDAOImpl dao = PaisDAOImpl.getInstance();
+		Clase<String> e = new Clase<String> ("Ivan");
+		Clase<Integer> f = new Clase<Integer>(27);
 
-		for (Object obj : dao.getPaises()) {
-			System.out.println(((Pais) obj).getNombre());
-		}
-		System.out.println("*******************************");
+		c.mostratTipo();
+		d.mostratTipo();
 
-		for (Object obj : dao.getPaises()) {
-			System.out.println(((Pais) obj).getNombre());
-		}
-		System.out.println("*******************************");
+		System.out.println("");
 
-		PaisDAOImpl daoi = PaisDAOImpl.getInstance();
-		for (Object obj : daoi.getPaises()) {
-			System.out.println(((Pais) obj).getNombre());
-		}
+		e.mostratTipo();
+		f.mostratTipo();
 
+		
+		
 	}
+
 }

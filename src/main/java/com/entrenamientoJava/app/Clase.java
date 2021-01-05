@@ -1,17 +1,27 @@
 package com.entrenamientoJava.app;
 
-public class Clase<T> {
+import org.omg.CORBA.PRIVATE_MEMBER;
 
-	private T objeto;
+public class Clase<K, T, V, E> {
 
-	public Clase(T objeto) {
-		this.objeto = objeto;
+	private K objetoK;
+	private T objetoT;
+	private V objetoV;
+	private E objetoE;
+
+	public Clase(K objetoK, T objetoT, V objetoV, E objetoE) {
+		this.objetoK = objetoK;
+		this.objetoT = objetoT;
+		this.objetoV = objetoV;
+		this.objetoE = objetoE;
+
 	}
-	
+
 	public void mostratTipo() {
-		System.out.println("T es un : " + objeto.getClass().getName());
+		System.out.println("K es un : " + objetoK.getClass().getName());
+		System.out.println("T es un : " + objetoT.getClass().getName());
+		System.out.println("V es un : " + objetoV.getClass().getName());
+		System.out.println("E es un : " + objetoE.getClass().getName());
 	}
 
-	
-	
 }

@@ -2,27 +2,27 @@ package com.entrenamientoJava.app;
 
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class App {
 
 	public static void main(String[] args) {
 
-		Clase c = new Clase("MitoCode");
-		Clase d = new Clase(25);
+	ArrayList<String> Lista = new ArrayList<String>();
+	
+	Lista.add("MitoCode");
+	//Lista.add(25);
+	
+	for (int i = 0; i < Lista.size(); i++) {
+		System.out.println(Lista.get(i));
+	}
 
-		Clase<String> e = new Clase<String> ("Ivan");
-		Clase<Integer> f = new Clase<Integer>(27);
-
-		c.mostratTipo();
-		d.mostratTipo();
-
-		System.out.println("");
-
-		e.mostratTipo();
-		f.mostratTipo();
-
-		
-		
+		//Clase Clase
+	System.out.println("");
+	
+	Clase <String,Integer,String,Double> c= new Clase<>("MitocCode",25,"Jaime",25.0);
+	c.mostratTipo();	
+	
 	}
 
 }

@@ -15,32 +15,7 @@ public class App {
 		listaDeObjetos.add(new Persona(1, "prueba", 18));
 		listaDeObjetos.add(new Persona(1, "Fernando", 27));
 
-		System.out.println("\nOrdenado Por Nombre\n");
-		Collections.sort(listaDeObjetos, new NombreComparator());
-
-		for (Persona p : listaDeObjetos) {
-
-			System.out.println(p.getNombre() + " - " + p.getEdad());
-
-		}
-
-		System.out.println("\nOrdenado Por edad\n");
-
-		Collections.sort(listaDeObjetos, new Comparator<Persona>() {
-			public int compare(Persona per1, Persona per2) {
-				int rpta = 0;
-
-				if (per1.getEdad() > per2.getEdad()) {
-					rpta = 1;
-				} else if (per1.getEdad() < per2.getEdad()) {
-					rpta = -1;
-				} else {
-					rpta = 0;
-				}
-				return rpta;
-
-			}
-		});
+		Collections.sort(listaDeObjetos);
 
 		for (Persona p : listaDeObjetos) {
 

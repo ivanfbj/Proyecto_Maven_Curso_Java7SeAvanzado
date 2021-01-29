@@ -1,6 +1,6 @@
 package com.entrenamientoJava.app;
 
-public class Persona {
+public class Persona implements Comparable <Persona> {
 
 	private int id;
 	private String nombre;
@@ -36,12 +36,43 @@ public class Persona {
 		this.edad = edad;
 	}
 
-	/*@Override
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + edad;
+		result = prime * result + id;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		if (edad != other.edad)
+			return false;
+		if (id != other.id)
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		return true;
+	}
+
+	@Override
 	public int compareTo(Persona per) {
 		//Dependiendo del orden de los parametros es el orden de los registros sea ascendente o descendente
 		return this.edad - per.getEdad();
 		//return this.nombre.compareTo(per.getNombre());
 		
-	}*/
+	}
 
 }

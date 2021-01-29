@@ -1,6 +1,6 @@
 package com.entrenamientoJava.app;
 
-public class Persona implements Comparable <Persona> {
+public class Persona {
 
 	private int id;
 	private String nombre;
@@ -65,14 +65,6 @@ public class Persona implements Comparable <Persona> {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
-	}
-
-	@Override
-	public int compareTo(Persona per) {
-		//Dependiendo del orden de los parametros es el orden de los registros sea ascendente o descendente
-		return this.edad - per.getEdad();
-		//return this.nombre.compareTo(per.getNombre());
-		
 	}
 
 }

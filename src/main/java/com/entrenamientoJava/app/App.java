@@ -1,83 +1,63 @@
 package com.entrenamientoJava.app;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Stack;
 
 public class App {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
-		Map<Integer, String> hMap = new HashMap<>();
-		//HashMap: No almacena 2 valores con la misma llave, muestra el ultimo valor ingresado
-		hMap.put(3, "MitoCode");
-		hMap.put(4, "Mito");
-		hMap.put(1, "Code");
-		hMap.put(2, "Jaime");
-		hMap.put(5, null);
-		hMap.put(null, "Hola");
+		Stack<String> pila = new Stack<>();
 
-		Iterator it = hMap.keySet().iterator();
-		while (it.hasNext()) {
-			Integer key = (Integer) it.next();
-			System.out.println("Clave: " + key + " -> Valor: " + hMap.get(key));
+		pila.push("1-MitoCode");
+		pila.push("2-Mito");
+		pila.push("3-Code");
+		pila.push("4-Jaime");
+		pila.push("5-Fer");
+
+		for (String elemento : pila) {
+			System.out.println(elemento);
+		}
+
+		System.out.println("El elemento que está al tope es: " + pila.peek());
+
+		// Sino encuentra el dato devuele un -1, si encuentra el elemento devulve la
+		// posición del elemento empezando desde el ultimo
+		System.out.println("Para buscar un elemento dentro de la Pila " + pila.search("2-Mito"));
+
+		// Pop Para remover elementos
+		while (!pila.isEmpty()) {
+			System.out.println("Atendiendo a " + pila.pop());
+			Thread.sleep(1000);// Me permite retrasar el proceso para que no se realice inmediatamente
+
 		}
 
 		
-		System.out.println("\nTreeMap\n");
+		System.out.println("\n Pila de Objetos \n");
 		
-		Map<Integer, String> tMap = new TreeMap<>();
-		//TreeMap: No me permite llave duplicadas, no permite valores duplicados considera el ultimo valor ingresado, y los ordena de forma ascendente.
-		tMap.put(3, "MitoCode2");
-		tMap.put(4, "Mito2");
-		tMap.put(1, "Code2");
-		tMap.put(2, "Jaime2");
-		tMap.put(5, null);
-		//tMap.put(null, "Hola2");
-
-		Iterator it2 = tMap.keySet().iterator();
-		while (it2.hasNext()) {
-			Integer key = (Integer) it2.next();
-			System.out.println("Clave: " + key + " -> Valor: " + tMap.get(key));
+		Stack<Persona> pilaObjetos = new Stack<>();
+		
+		pilaObjetos.push(new Persona(4, "MitoCode", 25));
+		pilaObjetos.push(new Persona(3, "MitoCode", 26));
+		pilaObjetos.push(new Persona(2, "MitoCode", 27));
+		pilaObjetos.push(new Persona(1, "MitoCode", 28));
+		
+		for (Persona persona : pilaObjetos) {
+			System.out.println(persona);
 		}
 		
-		System.out.println("\nLinkedHashMap\n");
-		
-		Map<Integer, String> lMap = new LinkedHashMap<>();
-		//LinkedHashMap: Se preocupa por el orden en el que voy agregando los elementos
-		lMap.put(3, "MitoCode2");
-		lMap.put(4, "Mito2");
-		lMap.put(1, "Code2");
-		lMap.put(2, "Jaime2");
-		lMap.put(5, null);
-		//tMap.put(null, "Hola2");
+		System.out.println("El elemento que está al tope es: " + pilaObjetos.peek());
 
-		Iterator it3 = lMap.keySet().iterator();
-		while (it3.hasNext()) {
-			Integer key = (Integer) it3.next();
-			System.out.println("Clave: " + key + " -> Valor: " + lMap.get(key));
-		}
-		
-		System.out.println("\nLinkedHashMap con objetos \n");
-		
-		Map<Persona, String> lMapObjeto = new LinkedHashMap<>();
-		//LinkedHashMap: Se preocupa por el orden en el que voy agregando los elementos
-		lMapObjeto.put(new Persona(1, "MitoCode", 21), "MitoCode");
-		lMapObjeto.put(new Persona(2, "MitoCode", 21), "Mito");
-		lMapObjeto.put(new Persona(4, "MitoCode", 21), "Code");
-		lMapObjeto.put(new Persona(5, "MitoCode", 21), "Jaime");
-		lMapObjeto.put(new Persona(3, "MitoCode", 21), "AAA");
-		lMapObjeto.put(new Persona(6, "MitoCode", 21), null);
-		//tMap.put(null, "Hola2");
+		// Sino encuentra el dato devuele un -1, si encuentra el elemento devulve la
+		// posición del elemento empezando desde el ultimo
+		System.out.println("Para buscar un elemento dentro de la Pila " + pilaObjetos.search(new Persona(1, "MitoCode", 28)));
+ 
+		// Pop Para remover elementos
+		while (!pilaObjetos.isEmpty()) {
+			System.out.println("Atendiendo a " + pilaObjetos.pop());
+			Thread.sleep(1000);// Me permite retrasar el proceso para que no se realice inmediatamente
 
-		Iterator it4 = lMapObjeto.keySet().iterator();
-		while (it4.hasNext()) {
-			Integer key = (Integer) it4.next();
-			System.out.println("Clave: " + key + " -> Valor: " + lMapObjeto.get(key));
 		}
-		
+
 	}
 
 }

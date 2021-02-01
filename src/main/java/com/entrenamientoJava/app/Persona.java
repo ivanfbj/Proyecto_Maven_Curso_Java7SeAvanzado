@@ -1,6 +1,6 @@
 package com.entrenamientoJava.app;
 
-public class Persona {
+public class Persona implements Comparable<Persona> {
 
 	private int id;
 	private String nombre;
@@ -72,6 +72,10 @@ public class Persona {
 		return "Persona [id=" + id + ", nombre=" + nombre + ", edad=" + edad + "]";
 	}
 
-	
-	
+	@Override
+	public int compareTo(Persona per) {
+
+		return this.edad - per.getEdad();
+	}
+
 }

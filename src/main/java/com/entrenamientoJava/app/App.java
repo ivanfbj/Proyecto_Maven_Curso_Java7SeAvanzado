@@ -1,63 +1,52 @@
 package com.entrenamientoJava.app;
 
-import java.util.Stack;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class App {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		Stack<String> pila = new Stack<>();
+		Queue<String> colaString = new PriorityQueue<>();
+		colaString.offer("1-MitoCode");
+		colaString.offer("2-Code");
+		colaString.offer("3-Mito");
+		colaString.offer("4-Jaime");
 
-		pila.push("1-MitoCode");
-		pila.push("2-Mito");
-		pila.push("3-Code");
-		pila.push("4-Jaime");
-		pila.push("5-Fer");
-
-		for (String elemento : pila) {
+		for (String elemento : colaString) {
 			System.out.println(elemento);
 		}
 
-		System.out.println("El elemento que está al tope es: " + pila.peek());
+		System.out.println("\n \n");
 
-		// Sino encuentra el dato devuele un -1, si encuentra el elemento devulve la
-		// posición del elemento empezando desde el ultimo
-		System.out.println("Para buscar un elemento dentro de la Pila " + pila.search("2-Mito"));
-
-		// Pop Para remover elementos
-		while (!pila.isEmpty()) {
-			System.out.println("Atendiendo a " + pila.pop());
-			Thread.sleep(1000);// Me permite retrasar el proceso para que no se realice inmediatamente
-
-		}
-
-		
-		System.out.println("\n Pila de Objetos \n");
-		
-		Stack<Persona> pilaObjetos = new Stack<>();
-		
-		pilaObjetos.push(new Persona(4, "MitoCode", 25));
-		pilaObjetos.push(new Persona(3, "MitoCode", 26));
-		pilaObjetos.push(new Persona(2, "MitoCode", 27));
-		pilaObjetos.push(new Persona(1, "MitoCode", 28));
-		
-		for (Persona persona : pilaObjetos) {
-			System.out.println(persona);
+		while(!colaString.isEmpty()) {
+			System.out.println("El registro actual es " + colaString.peek());
+			
+			System.out.println("Eliminando el registro  " + colaString.poll());
+			Thread.sleep(1000);
 		}
 		
-		System.out.println("El elemento que está al tope es: " + pilaObjetos.peek());
-
-		// Sino encuentra el dato devuele un -1, si encuentra el elemento devulve la
-		// posición del elemento empezando desde el ultimo
-		System.out.println("Para buscar un elemento dentro de la Pila " + pilaObjetos.search(new Persona(1, "MitoCode", 28)));
- 
-		// Pop Para remover elementos
-		while (!pilaObjetos.isEmpty()) {
-			System.out.println("Atendiendo a " + pilaObjetos.pop());
-			Thread.sleep(1000);// Me permite retrasar el proceso para que no se realice inmediatamente
-
+		System.out.println("\n Cola de tipo objeto\n");
+		
+		Queue<Persona> colaObjeto = new PriorityQueue<>();
+		
+		colaObjeto.offer(new Persona(1, "MitCode", 27));
+		colaObjeto.offer(new Persona(1, "MitoCode", 25));
+		colaObjeto.offer(new Persona(1, "MitCode", 28));
+		colaObjeto.offer(new Persona(1, "Code", 26));
+		
+		while(!colaObjeto.isEmpty()) {
+			System.out.println("El registro actual es " + colaObjeto.peek());
+			
+			System.out.println("Eliminando el registro  " + colaObjeto.poll());
+			Thread.sleep(1000);
 		}
-
+	
+	
 	}
+	
 
+	
+	
+	
 }

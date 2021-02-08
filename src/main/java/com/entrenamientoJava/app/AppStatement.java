@@ -2,6 +2,7 @@ package com.entrenamientoJava.app;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,12 +33,17 @@ public class AppStatement {
 
 	public boolean leerStatement(Persona per) throws SQLException {
 		boolean rpta = false;
+		PreparedStatement ps = null;
 
-		try (Statement st = con.createStatement()) {
-			String sql = "Select * from persona where nombre = '" + per.getNombre() + "' and pass = '" + per.getPass()
-					+ "'";
+		try {
+			String sql = "Select * from persona where nombre = ? and pass = ?;";
 			System.out.println("Query =>" + sql);
-			ResultSet rs = st.executeQuery(sql);
+
+			ps = con.prepareStatement(sql);
+			ps.setString(1, per.getNombre());
+			ps.setString(2, per.getPass());
+
+			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
 				System.out.println("existen datos");
@@ -46,21 +52,97 @@ public class AppStatement {
 				System.out.println("no existen datos");
 			}
 			return rpta;
+		} finally {
+
 		}
 	}
+
+	public void modificarBatchStatement(Persona per) throws SQLException {
+		long ini = System.currentTimeMillis();
+		try {
+			con.setAutoCommit(false);
+			for (int i = 0; i < 10000; i++) {
+
+				Statement st = con.createStatement();
+				String sql = "update persona set nombre = '" + per.getNombre() + "', pass = '" + per.getPass() + "';";
+				// System.out.println("Query = > " + sql);
+				int numeroFilas = st.executeUpdate(sql);
+				// System.out.println("#Filas Afectadas - Statement " + numeroFilas);
+			}
+			con.commit();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			con.rollback();
+		}
+		long fin = System.currentTimeMillis();
+
+		System.out.println("Statement : " + (fin - ini));
+	}
+
+	public void modificarBatchPreparedStatement(Persona per) throws SQLException {
+		long ini = System.currentTimeMillis();
+		try {
+			con.setAutoCommit(false);
+			for (int i = 0; i < 10000; i++) {
+				//String sql = "Update persona set nombre = ?,pass = ?;";
+				PreparedStatement ps = con.prepareStatement("Update persona set nombre = ?,pass = ?;");
+				ps.setString(1, per.getNombre());
+				ps.setString(2, per.getPass());
+				// System.out.println("Query = > " + sql);
+				//int numeroFilas = ps.executeUpdate(sql);
+				// System.out.println("#Filas Afectadas - Statement " + numeroFilas);
+			}
+			con.commit();
+		} catch (Exception e) {
+			con.rollback();
+			System.out.println(e.getMessage());
+		}
+		long fin = System.currentTimeMillis();
+
+		System.out.println("BatchPreparedStatement : " + (fin - ini));
+
+	}
 	
+	public void modificarExecuteBatchPreparedStatement(Persona per) throws SQLException {
+		long ini = System.currentTimeMillis();
+		try {
+			con.setAutoCommit(false);
+			PreparedStatement ps = null;
+			for (int i = 0; i < 10000; i++) {
+				//String sql = "Update persona set nombre = ?,pass = ?;";
+				ps = con.prepareStatement("Update persona set nombre = ?,pass = ?;");
+				ps.setString(1, per.getNombre());
+				ps.setString(2, per.getPass());
+				// System.out.println("Query = > " + sql);
+				//int numeroFilas = ps.executeUpdate(sql);
+				// System.out.println("#Filas Afectadas - Statement " + numeroFilas);
+				ps.addBatch();
+			}
+			ps.executeBatch();
+			con.commit();
+		} catch (Exception e) {
+			con.rollback();
+			System.out.println(e.getMessage());
+		}
+		long fin = System.currentTimeMillis();
+
+		System.out.println("ExecuteBatchPreparedStatement : " + (fin - ini));
+
+	}
+
 	public static void main(String[] args) throws SQLException {
 		AppStatement app = new AppStatement();
 		app.conectar();
-		boolean rpta = app.leerStatement(new Persona("Mito", "25' OR 'M' = 'M' "));
-		app.desconectar();
+
+		app.modificarBatchStatement(new Persona("MitoCode", "25"));
+		System.out.println("***************************************************");
+		app.modificarBatchPreparedStatement(new Persona("MitoCode", "25"));
+		System.out.println("***************************************************");
+		app.modificarExecuteBatchPreparedStatement(new Persona("MitoCode", "25"));
 		
-		if (rpta) {
-			System.out.println("Verificacion correcta, ingresando al sistema..");
-			
-		} else {
-			System.out.println("Credenciales incorrectas, acceso denegado");
-		}
+		app.desconectar();
+
 	}
 
 }

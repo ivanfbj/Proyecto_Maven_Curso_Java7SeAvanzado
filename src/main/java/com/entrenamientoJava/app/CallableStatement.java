@@ -174,11 +174,11 @@ public class CallableStatement {
 			String sql = "{call spSalidaID(?,?)}";
 			CallableStatement cs = con.prepareCall(sql);
 			cs.setString(1,per.getNombre());
-			cs.registerOutParameter(2,Types.INTEGER)
+			cs.registerOutParameter(2,Types.INTEGER);
 			cs.execute();
 			
 			int idSalida = cs.getInt(2);
-			
+			System.out.println("El código obtenidop de salida es: " + idSalida);
 			cs.close();
 
 		} catch (Exception e) {
